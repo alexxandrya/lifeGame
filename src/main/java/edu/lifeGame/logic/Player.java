@@ -1,93 +1,91 @@
 package edu.lifeGame.logic;
 
 
-
-
 import java.io.Serializable;
 
 public class Player implements Serializable {
-	private String name;
-	private int playerOrder;
-	private double salary;
-	private String career;
-	private Board board;//
-	private Square location; //
-	private Spin spin;
-	private Square newLoc;
-	private double income;
-	
-	
-	public Player(String name, Board board, Spin spin){
-		this.name = name;
-		this.board = board;
-		this.spin = spin;
-	}
-	public Player(String name, Board board, Spin spin, int position){
-		this.name = name;
-		this.board = board;
-		this.spin = spin;
-		Square square = board.getStartSquare();
-		for(int i=0; i<=position; i++) {
-			square=square.getNextSquare();
-		}
-		location = square;
-	}
-	/*
-	public Player(String name, Board board,int position, double salary, String career, Square location) {
-		this.name=name;
-		this.board=board;
-		this.salary = salary;
-		this.career = career;
-		this.location = location;
-	}
-*/
-	public Square setLocation(Square square){
-		square.setIndex(0);
-		return location;
-	}//
-	public Square getLocation() {
-		return location;
-	}
-	public Square getNewLoc(){
-		return newLoc;
-	}
-	
-	public void takeTurn() {
-		//spin//
-		int rollTotal;
-		rollTotal = Spin.spin();
-	
-		Square newLoc = board.getSquare(getLocation(), rollTotal);
-		location = newLoc;
-	}
-	
+    private String name;
+    private double salary;
+    private String career;
+    private Board board;//
+    private Square location; //
+    private Spin spin;
+    private double income;
 
-	public String getName() {
-		return name;
-	}
 
-	public void setSalary(double salary) {
-		this.salary = salary;
-	}
-	public double getSalary() {
-		return salary;
-	}
-	public void setIncome(double income) {
-		this.income = income;
-	}
-	public double getIncome() {
-		return income;
-	}
-	public void setCareer(String career) {
-		this.career = career;
-	}
-	public String getCareer() {
-		return career;
-	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		System.out.println("location" +location);
-		return super.toString();
-	}
+    public Player(String name, Board board, Spin spin) {
+        this.name = name;
+        this.board = board;
+        this.spin = spin;
+        this.location = board.getStartSquare();
+    }
+
+    public Square getLocation() {
+        return location;
+    }
+
+    public void takeTurn() {
+        int spinValue = spin.spin();
+        System.out.println("------" + location);
+        if (spinValue + location.getIndex() < 50) {
+            location = board.getSquare(getLocation(), spin.spin());
+        } else
+            location = board.getSquare(getLocation(), 49 - location.getIndex());
+
+        printStatus();
+
+    }
+
+    private void printStatus() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getName()).append("=");
+        for (int i = 0; i < 50; i++) {
+            if (i == location.getIndex()) {
+                sb.append("[X]");
+            }else
+                sb.append("[ ]");
+        }
+        System.out.println(sb.toString());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setIncome(double income) {
+        this.income = income;
+    }
+
+    public double getIncome() {
+        return income;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
+    }
+
+    public String getCareer() {
+        return career;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", salary=" + salary +
+                ", career='" + career + '\'' +
+                ", board=" + board +
+                ", location=" + location +
+                ", spin=" + spin +
+                ", income=" + income +
+                '}';
+    }
 }

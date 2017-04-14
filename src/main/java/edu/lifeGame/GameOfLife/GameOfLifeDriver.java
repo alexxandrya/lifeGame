@@ -16,29 +16,34 @@ public class GameOfLifeDriver {
 
     static Scanner console = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        StringBuilder menuOutput = new StringBuilder();
-        menuOutput.append("\nWelcome to Game of life Simulator!\n");
-        menuOutput.append("\nEnter: \n1 New game");
-        menuOutput.append("\n0 Exit\n\n");
-        boolean gameFlag = true;
-        while (gameFlag) {
-            System.out.print(menuOutput.toString());
-            int input = console.nextInt();
-            switch (input) {
-                case 1:
-                    game.playGame();
-                    break;
+    public static void main(String[] args) throws Exception{
+        try {
+            StringBuilder menuOutput = new StringBuilder();
+            menuOutput.append("\nWelcome to Game of life Simulator!\n");
+            menuOutput.append("\nEnter: \n1 New game");
+            menuOutput.append("\n0 Exit\n\n");
+            boolean gameFlag = true;
+            while (gameFlag) {
+                System.out.print(menuOutput.toString());
+                int input = console.nextInt();
+                switch (input) {
+                    case 1:
+                        game.playGame();
+                        break;
 
-                case 0:
-                    gameFlag = false;
-                    break;
+                    case 0:
+                        gameFlag = false;
+                        break;
 
-                default:
-                    System.out.println("Invalid Input. Please try again!");
+                    default:
+                        System.out.println("Invalid Input. Please try again!");
+                }
             }
+            System.out.println("Thank you for using the Game of Life Simulator!");
+        }catch (Exception e){
+            Thread.sleep(100L);
+            e.printStackTrace();
         }
-        System.out.println("Thank you for using the Game of Life Simulator!");
     }
 
 

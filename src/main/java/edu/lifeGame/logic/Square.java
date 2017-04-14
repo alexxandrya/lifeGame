@@ -32,4 +32,12 @@ public class Square implements Serializable{
 	public void setIndex(int x){
 		index = x;
 	}
+
+	@Override
+	public String toString() {
+		return "Square{" +
+				"name='" + name + '\'' +
+				", index=" + index +
+				'}';
+	}
 }

@@ -14,8 +14,6 @@ public class Board implements Serializable {
     private List squares = new ArrayList(SIZE);
     private SquareFactory sqFactory = new SquareFactory();
     private static Board instance = new Board();
-    private Spin spinner = new Spin();
-    private Square square;
 
     private Board() {
         buildSquares();
@@ -27,7 +25,7 @@ public class Board implements Serializable {
     }
 
     public Square getSquare(Square square, int distance) {
-
+        LOG.info("getSquare(" + square + ", " + distance + ")");
         int endIndex = (square.getIndex() + distance);
         return (Square) squares.get(endIndex);
     }
@@ -37,8 +35,7 @@ public class Board implements Serializable {
     }
 
     private void buildSquares() {
-        LOG.info("Board.buildsquares for " + SIZE);
-        for (int i = 1; i <= SIZE; i++) {
+        for (int i = 0; i < SIZE; i++) {
             build(i);
         }
     }
